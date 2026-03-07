@@ -55,6 +55,20 @@ export const manufacturers: Manufacturer[] = [
     countryId: 'usa',
     logo: 'https://logo.clearbit.com/tesla.com',
     history: 'Founded in 2003, Tesla is an American electric vehicle and clean energy company based in Austin, Texas.'
+  },
+  {
+    id: 'ford',
+    name: 'Ford',
+    countryId: 'usa',
+    logo: 'https://logo.clearbit.com/ford.com',
+    history: 'Founded by Henry Ford in 1903, Ford introduced methods for large-scale manufacturing of cars and large-scale management of an industrial workforce.'
+  },
+  {
+    id: 'lamborghini',
+    name: 'Lamborghini',
+    countryId: 'italy',
+    logo: 'https://logo.clearbit.com/lamborghini.com',
+    history: 'Founded in 1963 by Ferruccio Lamborghini, the company is known for its luxury sports cars and SUVs.'
   }
 ];
 
@@ -72,7 +86,7 @@ export const cars: Car[] = [
       topSpeed: '191 mph',
       zeroToSixty: '3.5s'
     },
-    modelUrl: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/porsche-911-991/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/porsche-911-991/model.gltf',
     image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -88,7 +102,7 @@ export const cars: Car[] = [
       topSpeed: '202 mph',
       zeroToSixty: '3.4s'
     },
-    modelUrl: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/ferrari-458/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -104,7 +118,7 @@ export const cars: Car[] = [
       topSpeed: '163 mph',
       zeroToSixty: '2.9s'
     },
-    modelUrl: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/tesla-model-3/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/tesla-model-3/model.gltf',
     image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -120,7 +134,39 @@ export const cars: Car[] = [
       topSpeed: '155 mph',
       zeroToSixty: '3.9s'
     },
-    modelUrl: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/toyota-supra/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/toyota-supra/model.gltf',
     image: 'https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'ford-mustang',
+    name: 'Mustang Mach 1',
+    year: 2021,
+    manufacturerId: 'ford',
+    countryId: 'usa',
+    description: 'The ultimate 5.0L V8 Mustang, built for the track and the street.',
+    specs: {
+      engine: '5.0L V8',
+      power: '480 hp',
+      topSpeed: '166 mph',
+      zeroToSixty: '4.2s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/ford-mustang/model.gltf',
+    image: 'https://images.unsplash.com/photo-1584345604482-8135a3327b4c?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'lamborghini-aventador',
+    name: 'Aventador SVJ',
+    year: 2020,
+    manufacturerId: 'lamborghini',
+    countryId: 'italy',
+    description: 'The pinnacle of Lamborghini V12 performance, featuring active aerodynamics and extreme power.',
+    specs: {
+      engine: '6.5L V12',
+      power: '759 hp',
+      topSpeed: '217 mph',
+      zeroToSixty: '2.8s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/lamborghini-aventador/model.gltf',
+    image: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=800'
   }
 ];

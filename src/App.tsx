@@ -14,13 +14,39 @@ function cn(...inputs: ClassValue[]) {
 export default function App() {
   const [selectedCarId, setSelectedCarId] = useState(cars[0].id);
   const [filterCountry, setFilterCountry] = useState<string | null>(null);
+  const [selectedManufacturerId, setSelectedManufacturerId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const currentCar = cars.find(c => c.id === selectedCarId) || cars[0];
   const currentManufacturer = manufacturers.find(m => m.id === currentCar.manufacturerId)!;
 
-  const filteredCars = filterCountry 
-    ? cars.filter(c => c.countryId === filterCountry)
-    : cars;
+  // Navigation Logic
+  const handleCountrySelect = (id: string | null) => {
+    setFilterCountry(id);
+    setSelectedManufacturerId(null);
+    setSearchQuery('');
+  };
+
+  const handleManufacturerSelect = (id: string) => {
+    setSelectedManufacturerId(id);
+    setSearchQuery('');
+  };
+
+  const currentCountry = countries.find(c => c.id === filterCountry);
+
+  // Search Logic
+  const filteredManufacturers = manufacturers.filter(mfr => {
+    const matchesCountry = !filterCountry || mfr.countryId === filterCountry;
+    const matchesSearch = mfr.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCountry && matchesSearch;
+  });
+
+  const filteredCars = cars.filter(car => {
+    const matchesMfr = !selectedManufacturerId || car.manufacturerId === selectedManufacturerId;
+    const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                         manufacturers.find(m => m.id === car.manufacturerId)?.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesMfr && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-emerald-500/30">
@@ -35,13 +61,13 @@ export default function App() {
         <div className="w-12 h-12 bg-white flex items-center justify-center rounded-xl mb-8">
           <CarIcon className="text-black" size={24} />
         </div>
-        <NavIcon icon={<Globe size={20} />} active={!filterCountry} onClick={() => setFilterCountry(null)} label="All" />
+        <NavIcon icon={<Globe size={20} />} active={!filterCountry} onClick={() => handleCountrySelect(null)} label="All" />
         {countries.map(country => (
           <NavIcon 
             key={country.id} 
             icon={<span className="text-lg">{country.flag}</span>} 
             active={filterCountry === country.id} 
-            onClick={() => setFilterCountry(country.id)}
+            onClick={() => handleCountrySelect(country.id)}
             label={country.name}
           />
         ))}
@@ -60,6 +86,8 @@ export default function App() {
               <input 
                 type="text" 
                 placeholder="Search collection..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="bg-white/5 border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-emerald-500/50 transition-colors w-64"
               />
             </div>
@@ -67,37 +95,88 @@ export default function App() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-          {/* Left Column: Collection List */}
+          {/* Left Column: Hierarchical List */}
           <div className="lg:col-span-3 border-r border-white/5 h-[calc(100vh-100px)] overflow-y-auto p-6 space-y-4 custom-scrollbar">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[10px] font-bold tracking-widest uppercase text-white/40">
-                {filterCountry ? `${filterCountry} Collection` : 'Full Collection'}
-              </h3>
-              <span className="text-[10px] font-mono text-white/20">{filteredCars.length} Units</span>
-            </div>
             
-            {filteredCars.map(car => (
-              <button
-                key={car.id}
-                onClick={() => setSelectedCarId(car.id)}
-                className={cn(
-                  "w-full text-left p-4 rounded-xl transition-all duration-300 group relative overflow-hidden",
-                  selectedCarId === car.id ? "bg-white/10 border border-white/20" : "hover:bg-white/5 border border-transparent"
-                )}
-              >
-                <div className="relative z-10">
-                  <div className="text-[10px] font-mono text-white/40 mb-1">{car.year}</div>
-                  <div className="font-medium group-hover:translate-x-1 transition-transform">{car.name}</div>
-                  <div className="text-xs text-white/40 mt-1">{manufacturers.find(m => m.id === car.manufacturerId)?.name}</div>
-                </div>
-                {selectedCarId === car.id && (
-                  <motion.div 
-                    layoutId="active-bg"
-                    className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent"
-                  />
-                )}
-              </button>
-            ))}
+            <AnimatePresence mode="wait">
+              {!selectedManufacturerId ? (
+                <motion.div 
+                  key="manufacturers"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="space-y-4"
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-[10px] font-bold tracking-widest uppercase text-white/40">
+                      {filterCountry ? `${currentCountry?.name} Manufacturers` : 'All Manufacturers'}
+                    </h3>
+                  </div>
+                  
+                  {filteredManufacturers.map(mfr => (
+                    <button
+                      key={mfr.id}
+                      onClick={() => handleManufacturerSelect(mfr.id)}
+                      className="w-full text-left p-4 rounded-xl transition-all duration-300 group bg-white/5 border border-white/5 hover:border-white/20 hover:bg-white/10"
+                    >
+                      <div className="flex items-center gap-4">
+                        <img src={mfr.logo} alt="" className="w-8 h-8 object-contain grayscale invert opacity-50 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+                        <div>
+                          <div className="font-medium">{mfr.name}</div>
+                          <div className="text-[10px] text-white/40 uppercase tracking-wider">
+                            {countries.find(c => c.id === mfr.countryId)?.name}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div 
+                  key="cars"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="space-y-4"
+                >
+                  <button 
+                    onClick={() => setSelectedManufacturerId(null)}
+                    className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-emerald-400 hover:text-emerald-300 transition-colors mb-4"
+                  >
+                    <ChevronRight className="rotate-180" size={14} />
+                    Back to Manufacturers
+                  </button>
+
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-[10px] font-bold tracking-widest uppercase text-white/40">
+                      {manufacturers.find(m => m.id === selectedManufacturerId)?.name} Models
+                    </h3>
+                  </div>
+
+                  {filteredCars.map(car => (
+                    <button
+                      key={car.id}
+                      onClick={() => setSelectedCarId(car.id)}
+                      className={cn(
+                        "w-full text-left p-4 rounded-xl transition-all duration-300 group relative overflow-hidden",
+                        selectedCarId === car.id ? "bg-white/10 border border-white/20" : "hover:bg-white/5 border border-transparent"
+                      )}
+                    >
+                      <div className="relative z-10">
+                        <div className="text-[10px] font-mono text-white/40 mb-1">{car.year}</div>
+                        <div className="font-medium group-hover:translate-x-1 transition-transform">{car.name}</div>
+                      </div>
+                      {selectedCarId === car.id && (
+                        <motion.div 
+                          layoutId="active-bg"
+                          className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent"
+                        />
+                      )}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Middle Column: 3D Viewer */}
