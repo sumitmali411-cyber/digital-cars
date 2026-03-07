@@ -86,7 +86,7 @@ export const cars: Car[] = [
       topSpeed: '191 mph',
       zeroToSixty: '3.5s'
     },
-    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/porsche-911-991/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -118,7 +118,7 @@ export const cars: Car[] = [
       topSpeed: '163 mph',
       zeroToSixty: '2.9s'
     },
-    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/tesla-model-3/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -134,7 +134,7 @@ export const cars: Car[] = [
       topSpeed: '155 mph',
       zeroToSixty: '3.9s'
     },
-    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/toyota-supra/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -150,7 +150,7 @@ export const cars: Car[] = [
       topSpeed: '166 mph',
       zeroToSixty: '4.2s'
     },
-    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/ford-mustang/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1584345604482-8135a3327b4c?auto=format&fit=crop&q=80&w=800'
   },
   {
@@ -166,7 +166,7 @@ export const cars: Car[] = [
       topSpeed: '217 mph',
       zeroToSixty: '2.8s'
     },
-    modelUrl: 'https://raw.githubusercontent.com/pmndrs/market-assets/main/models/lamborghini-aventador/model.gltf',
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=800'
   }
 ];

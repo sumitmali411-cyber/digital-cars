@@ -42,16 +42,45 @@ function ErrorFallback() {
 }
 
 function Model({ url }: { url: string }) {
-  const { scene } = useGLTF(url);
+  const { scene } = useGLTF(url, true); // Use draco if needed, and enable suspense
   return <primitive object={scene} />;
 }
 
 export default function ThreeScene({ modelUrl }: { modelUrl: string }) {
+  const [error, setError] = React.useState<Error | null>(null);
+
+  React.useEffect(() => {
+    setError(null);
+  }, [modelUrl]);
+
+  if (error) {
+    return (
+      <div className="w-full h-full bg-neutral-900 rounded-2xl flex items-center justify-center p-8">
+        <ErrorFallback />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full bg-neutral-900 rounded-2xl overflow-hidden relative">
-      <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }}>
+      <Canvas 
+        dpr={[1, 2]} 
+        shadows 
+        camera={{ fov: 45 }}
+        onError={(e) => {
+          console.error("Canvas Error:", e);
+          setError(new Error("Canvas failed to initialize"));
+        }}
+      >
         <color attach="background" args={['#171717']} />
-        <ErrorBoundary key={modelUrl} fallback={<ErrorFallback />}>
+        <ErrorBoundary 
+          key={modelUrl} 
+          fallback={<ErrorFallback />}
+          onError={(err) => {
+            console.error("3D Model Load Error:", err);
+            setError(err);
+          }}
+        >
           <Suspense fallback={<Loader />}>
             <Stage environment="city" intensity={0.5}>
               <Model url={modelUrl} />
