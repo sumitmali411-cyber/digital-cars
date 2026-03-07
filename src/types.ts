@@ -6,6 +6,7 @@ export interface Car {
   manufacturerId: string;
   countryId: string;
   description: string;
+  history: string;
   specs: {
     engine: string;
     power: string;
@@ -29,4 +30,6 @@ export interface Country {
   name: string;
   flag: string;
   description: string;
+  history: string;
+  automotiveHeritage: string;
 }
