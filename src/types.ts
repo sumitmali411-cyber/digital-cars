@@ -23,6 +23,7 @@ export interface Manufacturer {
   countryId: string;
   logo: string;
   history: string;
+  timeline?: { year: number; event: string }[];
 }
 
 export interface Country {

@@ -18,20 +18,6 @@ export default function Hero({ onEnter }: HeroProps) {
         />
       </div>
 
-      {/* Animated Car driving away */}
-      <motion.div
-        initial={{ scale: 1, y: 0, opacity: 0 }}
-        animate={{ scale: 0.2, y: -200, opacity: [0, 1, 0] }}
-        transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
-        className="absolute z-20 pointer-events-none"
-      >
-        <img 
-          src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=400" 
-          alt="Car" 
-          className="w-64 h-auto rounded-lg shadow-2xl shadow-red-500/20"
-        />
-      </motion.div>
-
       {/* Content */}
       <div className="relative z-30 text-center space-y-8 px-4">
         <motion.div

@@ -7,6 +7,7 @@ import Hero from './components/Hero';
 import CountryCard from './components/CountryCard';
 import CountryDetail from './components/CountryDetail';
 import CarDetail from './components/CarDetail';
+import ScrollCarProgress from './components/ScrollCarProgress';
 
 type ViewState = 'hero' | 'countries' | 'country-detail' | 'car-detail';
 
@@ -31,7 +32,8 @@ export default function App() {
   }, [view, selectedCountry, selectedCar]);
 
   return (
-    <div className="min-h-screen bg-black selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-black selection:bg-emerald-500 selection:text-white overflow-x-hidden">
+      <ScrollCarProgress />
       {/* Global Header */}
       {view !== 'hero' && (
         <header className="fixed top-0 left-0 right-0 z-[100] bg-black/50 backdrop-blur-xl border-b border-white/5">
@@ -58,10 +60,10 @@ export default function App() {
         {view === 'hero' && (
           <motion.div
             key="hero"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -100, skewX: 10 }}
+            animate={{ opacity: 1, x: 0, skewX: 0 }}
+            exit={{ opacity: 0, x: 200, skewX: -20, filter: 'blur(10px)', pointerEvents: 'none' }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <Hero onEnter={() => setView('countries')} />
           </motion.div>
@@ -70,9 +72,10 @@ export default function App() {
         {view === 'countries' && (
           <motion.div
             key="countries"
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, x: -200, skewX: 20 }}
+            animate={{ opacity: 1, x: 0, skewX: 0 }}
+            exit={{ opacity: 0, x: 200, skewX: -20, filter: 'blur(10px)', pointerEvents: 'none' }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-7xl mx-auto px-8 py-32"
           >
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-24">
@@ -108,9 +111,10 @@ export default function App() {
         {view === 'country-detail' && selectedCountry && (
           <motion.div
             key="country-detail"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, x: -200, skewX: 10 }}
+            animate={{ opacity: 1, x: 0, skewX: 0 }}
+            exit={{ opacity: 0, x: 200, skewX: -10, filter: 'blur(10px)', pointerEvents: 'none' }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <CountryDetail
               country={selectedCountry}
@@ -127,9 +131,10 @@ export default function App() {
         {view === 'car-detail' && selectedCar && carManufacturer && (
           <motion.div
             key="car-detail"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, x: 300, skewX: -20, filter: 'blur(20px)' }}
+            animate={{ opacity: 1, x: 0, skewX: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: -300, skewX: 20, filter: 'blur(20px)', pointerEvents: 'none' }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <CarDetail
               car={selectedCar}

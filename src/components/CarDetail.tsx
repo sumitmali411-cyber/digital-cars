@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Cpu, Zap, Gauge, Timer, Info, Volume2 } from 'lucide-react';
+import { ArrowLeft, Cpu, Zap, Gauge, Timer, Info, Clock } from 'lucide-react';
 import { Car, Manufacturer } from '../types';
 import ThreeScene from './ThreeScene';
 
@@ -11,54 +11,6 @@ interface CarDetailProps {
 }
 
 export default function CarDetail({ car, manufacturer, onBack }: CarDetailProps) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    // Initialize audio with a more reliable source and cross-origin handling
-    const audio = new Audio();
-    audio.src = 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3';
-    audio.volume = 0.5;
-    audio.preload = 'auto';
-    audio.crossOrigin = 'anonymous';
-    audioRef.current = audio;
-    
-    // Pre-load the audio
-    audio.load();
-
-    // Resume audio context on first interaction if needed
-    const unlockAudio = () => {
-      if (audioRef.current) {
-        audioRef.current.play().then(() => {
-          audioRef.current?.pause();
-          audioRef.current!.currentTime = 0;
-        }).catch(() => {});
-      }
-    };
-    window.addEventListener('click', unlockAudio, { once: true });
-    
-    return () => {
-      window.removeEventListener('click', unlockAudio);
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
-
-  const playRev = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(e => console.log("Audio play blocked", e));
-    }
-  };
-
-  const stopRev = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-black text-white flex flex-col pt-20">
       {/* Navigation */}
@@ -78,15 +30,9 @@ export default function CarDetail({ car, manufacturer, onBack }: CarDetailProps)
       <div className="flex-1 grid lg:grid-cols-2">
         {/* Left: 3D Scene */}
         <div 
-          className="relative h-[50vh] lg:h-full border-r border-white/5 cursor-pointer"
-          onMouseEnter={playRev}
-          onMouseLeave={stopRev}
+          className="relative h-[50vh] lg:h-full border-r border-white/5 cursor-pointer group/scene"
         >
           <ThreeScene modelUrl={car.modelUrl} />
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white/20 pointer-events-none">
-            <Volume2 size={14} />
-            <span className="text-[10px] uppercase tracking-widest font-bold">Hover to Rev Engine</span>
-          </div>
         </div>
 
         {/* Right: Info */}
@@ -106,16 +52,16 @@ export default function CarDetail({ car, manufacturer, onBack }: CarDetailProps)
 
           {/* Specs Grid */}
           <div className="grid grid-cols-2 gap-8">
-            <div onMouseEnter={playRev} onMouseLeave={stopRev}>
+            <div className="cursor-pointer">
               <SpecItem icon={<Cpu size={20} />} label="Engine" value={car.specs.engine} highlight />
             </div>
-            <div onMouseEnter={playRev} onMouseLeave={stopRev}>
+            <div className="cursor-pointer">
               <SpecItem icon={<Zap size={20} />} label="Power" value={car.specs.power} highlight />
             </div>
-            <div onMouseEnter={playRev} onMouseLeave={stopRev}>
+            <div className="cursor-pointer">
               <SpecItem icon={<Gauge size={20} />} label="Top Speed" value={car.specs.topSpeed} highlight />
             </div>
-            <div onMouseEnter={playRev} onMouseLeave={stopRev}>
+            <div className="cursor-pointer">
               <SpecItem icon={<Timer size={20} />} label="0-60 MPH" value={car.specs.zeroToSixty} highlight />
             </div>
           </div>
@@ -140,6 +86,32 @@ export default function CarDetail({ car, manufacturer, onBack }: CarDetailProps)
               <p className="text-white/60 leading-relaxed text-lg italic">
                 {manufacturer.history}
               </p>
+              
+              {/* Manufacturer Timeline */}
+              {manufacturer.timeline && manufacturer.timeline.length > 0 && (
+                <div className="mt-8 space-y-6">
+                  <div className="flex items-center gap-3 text-emerald-500">
+                    <Clock size={20} />
+                    <span className="uppercase tracking-[0.3em] text-xs font-bold">Evolution Timeline</span>
+                  </div>
+                  <div className="relative border-l border-white/10 ml-3 space-y-8 pb-4">
+                    {manufacturer.timeline.map((item, index) => (
+                      <motion.div 
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className="relative pl-8"
+                      >
+                        <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-4 ring-black" />
+                        <div className="text-emerald-500 font-mono text-sm font-bold mb-1">{item.year}</div>
+                        <div className="text-white/70 text-sm leading-relaxed">{item.event}</div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

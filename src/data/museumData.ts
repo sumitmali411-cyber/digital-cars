@@ -209,70 +209,224 @@ export const manufacturers: Manufacturer[] = [
     name: 'Porsche',
     countryId: 'germany',
     logo: 'https://logo.clearbit.com/porsche.com',
-    history: 'Founded in 1931 by Ferdinand Porsche, the company initially offered motor vehicle development work and consulting.'
+    history: 'Founded in 1931 by Ferdinand Porsche, the company initially offered motor vehicle development work and consulting.',
+    timeline: [
+      { year: 1931, event: 'Founded by Ferdinand Porsche' },
+      { year: 1948, event: 'First Porsche 356 produced' },
+      { year: 1963, event: 'Introduction of the iconic 911' },
+      { year: 2002, event: 'Launch of the Cayenne SUV' },
+      { year: 2019, event: 'Taycan, the first all-electric Porsche, debuts' }
+    ]
+  },
+  {
+    id: 'bmw',
+    name: 'BMW',
+    countryId: 'germany',
+    logo: 'https://logo.clearbit.com/bmw.com',
+    history: 'Bayerische Motoren Werke AG, commonly referred to as BMW, was founded in 1916 as a manufacturer of aircraft engines.',
+    timeline: [
+      { year: 1916, event: 'Founded as an aircraft engine manufacturer' },
+      { year: 1928, event: 'Began automobile production' },
+      { year: 1972, event: 'BMW M division established' },
+      { year: 1999, event: 'Launch of the X5, entering the SUV market' },
+      { year: 2013, event: 'Introduction of the i3 electric car' }
+    ]
+  },
+  {
+    id: 'mercedes',
+    name: 'Mercedes-Benz',
+    countryId: 'germany',
+    logo: 'https://logo.clearbit.com/mercedes-benz.com',
+    history: 'The brand traces its origins to Karl Benz\'s creation of the first internal combustion engine in a car, the Benz Patent Motorwagen.',
+    timeline: [
+      { year: 1886, event: 'Karl Benz patents the Motorwagen' },
+      { year: 1926, event: 'Daimler and Benz merge to form Mercedes-Benz' },
+      { year: 1954, event: 'Introduction of the iconic 300 SL Gullwing' },
+      { year: 1997, event: 'Launch of the M-Class SUV' },
+      { year: 2019, event: 'EQC launched, marking the start of the EQ electric sub-brand' }
+    ]
   },
   {
     id: 'ferrari',
     name: 'Ferrari',
     countryId: 'italy',
     logo: 'https://logo.clearbit.com/ferrari.com',
-    history: 'Founded by Enzo Ferrari in 1939 out of Alfa Romeo\'s race division as Auto Avio Costruzioni.'
-  },
-  {
-    id: 'toyota',
-    name: 'Toyota',
-    countryId: 'japan',
-    logo: 'https://logo.clearbit.com/toyota.com',
-    history: 'Started as a division of Toyoda Automatic Loom Works, Toyota has grown into one of the largest automakers in the world.'
-  },
-  {
-    id: 'tesla',
-    name: 'Tesla',
-    countryId: 'usa',
-    logo: 'https://logo.clearbit.com/tesla.com',
-    history: 'Founded in 2003, Tesla is an American electric vehicle and clean energy company based in Austin, Texas.'
-  },
-  {
-    id: 'ford',
-    name: 'Ford',
-    countryId: 'usa',
-    logo: 'https://logo.clearbit.com/ford.com',
-    history: 'Founded by Henry Ford in 1903, Ford introduced methods for large-scale manufacturing of cars and large-scale management of an industrial workforce.'
+    history: 'Founded by Enzo Ferrari in 1939 out of Alfa Romeo\'s race division as Auto Avio Costruzioni.',
+    timeline: [
+      { year: 1939, event: 'Founded by Enzo Ferrari' },
+      { year: 1947, event: 'First Ferrari-badged car, the 125 S, produced' },
+      { year: 1987, event: 'Launch of the legendary F40' },
+      { year: 2002, event: 'Enzo Ferrari supercar introduced' },
+      { year: 2022, event: 'Purosangue, Ferrari\'s first SUV, unveiled' }
+    ]
   },
   {
     id: 'lamborghini',
     name: 'Lamborghini',
     countryId: 'italy',
     logo: 'https://logo.clearbit.com/lamborghini.com',
-    history: 'Founded in 1963 by Ferruccio Lamborghini, the company is known for its luxury sports cars and SUVs.'
+    history: 'Founded in 1963 by Ferruccio Lamborghini, the company is known for its luxury sports cars and SUVs.',
+    timeline: [
+      { year: 1963, event: 'Founded by Ferruccio Lamborghini' },
+      { year: 1966, event: 'Miura introduced, establishing the mid-engine supercar layout' },
+      { year: 1974, event: 'Countach debuts with iconic wedge design' },
+      { year: 1998, event: 'Acquired by the Volkswagen Group' },
+      { year: 2017, event: 'Urus SUV launched' }
+    ]
+  },
+  {
+    id: 'maserati',
+    name: 'Maserati',
+    countryId: 'italy',
+    logo: 'https://logo.clearbit.com/maserati.com',
+    history: 'Founded in 1914 in Bologna, Italy, the Maserati brothers were involved in racing from the beginning.',
+    timeline: [
+      { year: 1914, event: 'Founded by the Maserati brothers' },
+      { year: 1926, event: 'First Maserati car, the Tipo 26, wins its class at Targa Florio' },
+      { year: 1957, event: 'Juan Manuel Fangio wins F1 World Championship in a Maserati 250F' },
+      { year: 1993, event: 'Acquired by Fiat' },
+      { year: 2020, event: 'MC20 supercar introduced, marking a new era' }
+    ]
+  },
+  {
+    id: 'toyota',
+    name: 'Toyota',
+    countryId: 'japan',
+    logo: 'https://logo.clearbit.com/toyota.com',
+    history: 'Started as a division of Toyoda Automatic Loom Works, Toyota has grown into one of the largest automakers in the world.',
+    timeline: [
+      { year: 1937, event: 'Toyota Motor Corporation established' },
+      { year: 1966, event: 'Corolla introduced, becoming the best-selling car globally' },
+      { year: 1989, event: 'Lexus luxury division launched' },
+      { year: 1997, event: 'Prius, the first mass-produced hybrid, debuts' },
+      { year: 2021, event: 'Announces major shift towards battery electric vehicles' }
+    ]
+  },
+  {
+    id: 'nissan',
+    name: 'Nissan',
+    countryId: 'japan',
+    logo: 'https://logo.clearbit.com/nissan-global.com',
+    history: 'Nissan\'s origins date back to the Kwaishinsha Motor Car Works, established in 1911.',
+    timeline: [
+      { year: 1933, event: 'Nissan Motor Co., Ltd. established' },
+      { year: 1969, event: 'Datsun 240Z introduced, popularizing Japanese sports cars' },
+      { year: 1989, event: 'Skyline GT-R (R32) dominates motorsport' },
+      { year: 1999, event: 'Renault-Nissan Alliance formed' },
+      { year: 2010, event: 'Leaf, the first mass-market EV, launched' }
+    ]
+  },
+  {
+    id: 'tesla',
+    name: 'Tesla',
+    countryId: 'usa',
+    logo: 'https://logo.clearbit.com/tesla.com',
+    history: 'Founded in 2003, Tesla is an American electric vehicle and clean energy company based in Austin, Texas.',
+    timeline: [
+      { year: 2003, event: 'Tesla Motors founded' },
+      { year: 2008, event: 'Roadster, the first production EV with lithium-ion cells, released' },
+      { year: 2012, event: 'Model S luxury sedan launched' },
+      { year: 2017, event: 'Model 3 introduced for the mass market' },
+      { year: 2023, event: 'Cybertruck deliveries begin' }
+    ]
+  },
+  {
+    id: 'ford',
+    name: 'Ford',
+    countryId: 'usa',
+    logo: 'https://logo.clearbit.com/ford.com',
+    history: 'Founded by Henry Ford in 1903, Ford introduced methods for large-scale manufacturing of cars.',
+    timeline: [
+      { year: 1903, event: 'Ford Motor Company incorporated' },
+      { year: 1908, event: 'Model T introduced, making cars affordable' },
+      { year: 1913, event: 'First moving assembly line implemented' },
+      { year: 1964, event: 'Mustang launched, creating the "pony car" class' },
+      { year: 2021, event: 'Mustang Mach-E and F-150 Lightning EVs introduced' }
+    ]
+  },
+  {
+    id: 'chevrolet',
+    name: 'Chevrolet',
+    countryId: 'usa',
+    logo: 'https://logo.clearbit.com/chevrolet.com',
+    history: 'Founded in 1911 by Louis Chevrolet and William C. Durant, Chevrolet is the core brand of General Motors.',
+    timeline: [
+      { year: 1911, event: 'Chevrolet Motor Car Company founded' },
+      { year: 1918, event: 'Acquired by General Motors' },
+      { year: 1953, event: 'Corvette sports car introduced' },
+      { year: 1966, event: 'Camaro launched to compete with the Mustang' },
+      { year: 2020, event: 'First mid-engine Corvette (C8) released' }
+    ]
   },
   {
     id: 'aston-martin',
     name: 'Aston Martin',
     countryId: 'uk',
     logo: 'https://logo.clearbit.com/astonmartin.com',
-    history: 'Founded in 1913 by Lionel Martin and Robert Bamford, Aston Martin is an iconic British luxury sports car brand.'
+    history: 'Founded in 1913 by Lionel Martin and Robert Bamford, Aston Martin is an iconic British luxury sports car brand.',
+    timeline: [
+      { year: 1913, event: 'Founded by Lionel Martin and Robert Bamford' },
+      { year: 1947, event: 'David Brown acquires the company (origin of "DB" models)' },
+      { year: 1964, event: 'DB5 featured in James Bond film Goldfinger' },
+      { year: 2020, event: 'DBX, the brand\'s first SUV, launched' },
+      { year: 2021, event: 'Returns to Formula 1 as a factory team' }
+    ]
+  },
+  {
+    id: 'mclaren',
+    name: 'McLaren',
+    countryId: 'uk',
+    logo: 'https://logo.clearbit.com/mclaren.com',
+    history: 'Founded in 1963 by Bruce McLaren, the company is a pioneer in carbon fiber technology and Formula 1 racing.',
+    timeline: [
+      { year: 1963, event: 'Bruce McLaren Motor Racing founded' },
+      { year: 1992, event: 'McLaren F1 road car sets speed records' },
+      { year: 2010, event: 'McLaren Automotive established for production cars' },
+      { year: 2013, event: 'P1 hybrid hypercar introduced' },
+      { year: 2021, event: 'Artura, the first high-performance hybrid, launched' }
+    ]
   },
   {
     id: 'bugatti',
     name: 'Bugatti',
     countryId: 'france',
     logo: 'https://logo.clearbit.com/bugatti.com',
-    history: 'Founded in 1909 by Ettore Bugatti, the brand is famous for high-performance automobiles and artistic design.'
+    history: 'Founded in 1909 by Ettore Bugatti, the brand is famous for high-performance automobiles and artistic design.',
+    timeline: [
+      { year: 1909, event: 'Automobiles Ettore Bugatti founded' },
+      { year: 1924, event: 'Type 35 becomes the most successful racing car ever' },
+      { year: 1998, event: 'Volkswagen Group acquires the rights to the brand' },
+      { year: 2005, event: 'Veyron 16.4 becomes the first production car to exceed 250 mph' },
+      { year: 2021, event: 'Bugatti Rimac joint venture formed' }
+    ]
   },
   {
     id: 'koenigsegg',
     name: 'Koenigsegg',
     countryId: 'sweden',
     logo: 'https://logo.clearbit.com/koenigsegg.com',
-    history: 'Founded in 1994 by Christian von Koenigsegg, the company produces world-record-breaking hypercars.'
+    history: 'Founded in 1994 by Christian von Koenigsegg, the company produces world-record-breaking hypercars.',
+    timeline: [
+      { year: 1994, event: 'Koenigsegg Automotive AB founded' },
+      { year: 2002, event: 'CC8S, the first production car, delivered' },
+      { year: 2010, event: 'Agera introduced' },
+      { year: 2015, event: 'Regera hybrid hypercar features Direct Drive system' },
+      { year: 2020, event: 'Gemera, the first four-seater "Mega-GT", unveiled' }
+    ]
   },
   {
     id: 'rimac',
     name: 'Rimac',
     countryId: 'croatia',
     logo: 'https://logo.clearbit.com/rimac-automobili.com',
-    history: 'Founded in 2009 by Mate Rimac, Rimac is a leader in electric hypercar technology.'
+    history: 'Founded in 2009 by Mate Rimac, Rimac is a leader in electric hypercar technology.',
+    timeline: [
+      { year: 2009, event: 'Rimac Automobili founded in a garage' },
+      { year: 2011, event: 'Concept_One unveiled at Frankfurt Motor Show' },
+      { year: 2018, event: 'C_Two concept (later Nevera) introduced' },
+      { year: 2021, event: 'Bugatti Rimac joint venture established' },
+      { year: 2022, event: 'Nevera sets 23 performance records in a single day' }
+    ]
   }
 ];
 
@@ -295,6 +449,40 @@ export const cars: Car[] = [
     image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800'
   },
   {
+    id: 'bmw-m4',
+    name: 'M4 Competition',
+    year: 2024,
+    manufacturerId: 'bmw',
+    countryId: 'germany',
+    description: 'A high-performance coupe that blends track-ready dynamics with everyday usability.',
+    history: 'The M4 replaced the M3 coupe and convertible models in 2014, continuing the legacy of BMW\'s M division.',
+    specs: {
+      engine: '3.0L Twin-Turbo Inline-6',
+      power: '503 hp',
+      topSpeed: '180 mph',
+      zeroToSixty: '3.8s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
+    image: 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'mercedes-amg-gt',
+    name: 'AMG GT Black Series',
+    year: 2021,
+    manufacturerId: 'mercedes',
+    countryId: 'germany',
+    description: 'The ultimate expression of Mercedes-AMG performance, featuring extreme aerodynamics and power.',
+    history: 'The Black Series represents the most track-focused models from AMG, with the GT being the sixth model to wear the badge.',
+    specs: {
+      engine: '4.0L V8 Biturbo',
+      power: '720 hp',
+      topSpeed: '202 mph',
+      zeroToSixty: '3.1s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800'
+  },
+  {
     id: 'ferrari-458',
     name: '458 Italia',
     year: 2015,
@@ -310,6 +498,23 @@ export const cars: Car[] = [
     },
     modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'lamborghini-aventador',
+    name: 'Aventador SVJ',
+    year: 2021,
+    manufacturerId: 'lamborghini',
+    countryId: 'italy',
+    description: 'A V12-powered beast that redefined the supercar segment with its aggressive design and performance.',
+    history: 'The SVJ (Super Veloce Jota) is the most extreme version of the Aventador, setting a Nürburgring lap record.',
+    specs: {
+      engine: '6.5L V12',
+      power: '759 hp',
+      topSpeed: '217 mph',
+      zeroToSixty: '2.8s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
+    image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'tesla-model-3',
@@ -329,6 +534,23 @@ export const cars: Car[] = [
     image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=800'
   },
   {
+    id: 'ford-mustang',
+    name: 'Mustang Shelby GT500',
+    year: 2022,
+    manufacturerId: 'ford',
+    countryId: 'usa',
+    description: 'The most powerful street-legal Ford ever, featuring a supercharged V8 and track-bred tech.',
+    history: 'The Shelby GT500 returns to the Mustang lineup as the pinnacle of American muscle performance.',
+    specs: {
+      engine: '5.2L Supercharged V8',
+      power: '760 hp',
+      topSpeed: '180 mph',
+      zeroToSixty: '3.3s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
+    image: 'https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&q=80&w=800'
+  },
+  {
     id: 'toyota-supra',
     name: 'GR Supra',
     year: 2022,
@@ -346,6 +568,23 @@ export const cars: Car[] = [
     image: 'https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&q=80&w=800'
   },
   {
+    id: 'nissan-gtr',
+    name: 'GT-R Nismo',
+    year: 2024,
+    manufacturerId: 'nissan',
+    countryId: 'japan',
+    description: 'Godzilla in its most potent form. A technological marvel that defies physics on the track.',
+    history: 'The GT-R Nismo is the ultimate expression of Nissan\'s engineering prowess, refined over decades of racing.',
+    specs: {
+      engine: '3.8L Twin-Turbo V6',
+      power: '600 hp',
+      topSpeed: '196 mph',
+      zeroToSixty: '2.5s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
+    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800'
+  },
+  {
     id: 'aston-martin-vantage',
     name: 'Vantage',
     year: 2023,
@@ -361,6 +600,23 @@ export const cars: Car[] = [
     },
     modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
     image: 'https://images.unsplash.com/photo-1603584173870-7f3ca9f094ec?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'mclaren-720s',
+    name: '720S Spider',
+    year: 2023,
+    manufacturerId: 'mclaren',
+    countryId: 'uk',
+    description: 'A lightweight, mid-engined supercar that offers blistering performance and open-top thrills.',
+    history: 'The 720S replaced the 650S in 2017, introducing a new carbon fiber chassis and active aerodynamics.',
+    specs: {
+      engine: '4.0L Twin-Turbo V8',
+      power: '710 hp',
+      topSpeed: '212 mph',
+      zeroToSixty: '2.8s'
+    },
+    modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/ferrari.glb',
+    image: 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'bugatti-chiron',
