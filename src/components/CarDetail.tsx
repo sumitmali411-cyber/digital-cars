@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Cpu, Zap, Gauge, Timer, Info, Volume2 } from 'lucide-react';
+import { ArrowLeft, Cpu, Zap, Gauge, Timer, Info, Volume2, ChevronDown, ChevronUp, Send } from 'lucide-react';
+import { GoogleGenerativeAI } from '@google/genai';
 import { Car, Manufacturer } from '../types';
 import ThreeScene from './ThreeScene';
 
@@ -12,6 +13,40 @@ interface CarDetailProps {
 
 export default function CarDetail({ car, manufacturer, onBack }: CarDetailProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [aiOpen, setAiOpen] = useState(false);
+  const [aiQuestion, setAiQuestion] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState('');
+
+  const handleAiSubmit = async () => {
+    if (!aiQuestion.trim()) return;
+
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      setAiResponse('');
+      setAiError('AI assistant requires GEMINI_API_KEY to be configured.');
+      return;
+    }
+
+    setAiLoading(true);
+    setAiResponse('');
+    setAiError('');
+
+    try {
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const result = await model.generateContent(
+        `About the ${car.year} ${manufacturer.name} ${car.name}: ${aiQuestion}`
+      );
+      setAiResponse(result.response.text());
+    } catch (err) {
+      setAiError('Failed to get a response. Please try again.');
+      console.error('Gemini AI error:', err);
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Initialize audio with a more reliable source and cross-origin handling
@@ -140,6 +175,58 @@ export default function CarDetail({ car, manufacturer, onBack }: CarDetailProps)
               <p className="text-white/60 leading-relaxed text-lg italic">
                 {manufacturer.history}
               </p>
+            </div>
+
+            {/* AI Assistant Section */}
+            <div className="pt-8 border-t border-white/5">
+              <button
+                onClick={() => setAiOpen(prev => !prev)}
+                className="flex items-center justify-between w-full text-left group"
+              >
+                <div className="flex items-center gap-3 text-emerald-500">
+                  <span className="uppercase tracking-[0.3em] text-xs font-bold">Ask AI About This Car</span>
+                </div>
+                <span className="text-white/40 group-hover:text-white transition-colors">
+                  {aiOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                </span>
+              </button>
+
+              {aiOpen && (
+                <div className="mt-6 space-y-4">
+                  <div className="flex gap-3">
+                    <input
+                      type="text"
+                      value={aiQuestion}
+                      onChange={e => setAiQuestion(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && !aiLoading && handleAiSubmit()}
+                      placeholder={`Ask anything about the ${car.year} ${manufacturer.name} ${car.name}...`}
+                      className="flex-1 bg-white/5 border border-white/10 rounded px-4 py-3 text-white placeholder-white/20 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+                    />
+                    <button
+                      onClick={handleAiSubmit}
+                      disabled={aiLoading || !aiQuestion.trim()}
+                      className="flex items-center gap-2 px-5 py-3 bg-emerald-500 hover:bg-emerald-400 disabled:bg-white/10 disabled:text-white/20 text-black font-bold text-xs uppercase tracking-widest rounded transition-colors"
+                    >
+                      <Send size={14} />
+                      {aiLoading ? 'Asking...' : 'Ask'}
+                    </button>
+                  </div>
+
+                  {aiLoading && (
+                    <p className="text-white/40 text-sm animate-pulse">Getting AI response...</p>
+                  )}
+
+                  {aiError && (
+                    <p className="text-red-400 text-sm">{aiError}</p>
+                  )}
+
+                  {aiResponse && !aiLoading && (
+                    <div className="bg-white/5 border border-white/10 rounded p-5">
+                      <p className="text-white/80 text-sm leading-relaxed whitespace-pre-wrap">{aiResponse}</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
