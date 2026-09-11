@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Car, Manufacturer } from '../types';
-import { GoogleGenAI } from "@google/genai";
 import { motion, AnimatePresence } from 'motion/react';
 import { Info, Zap, Gauge, Timer, BookOpen } from 'lucide-react';
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export default function CarDetails({ car, manufacturer }: { car: Car; manufacturer: Manufacturer }) {
   const [insight, setInsight] = useState<string>('');
@@ -14,11 +11,23 @@ export default function CarDetails({ car, manufacturer }: { car: Car; manufactur
     async function fetchInsight() {
       setLoading(true);
       try {
-        const response = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
-          contents: `As a museum curator, provide a 2-sentence fascinating historical insight or "Curator's Note" about the ${car.year} ${manufacturer.name} ${car.name}. Focus on its cultural impact or engineering significance.`,
+        // The Gemini key stays on the server; this goes through the proxy.
+        const response = await fetch('/api/insight', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            carName: car.name,
+            carYear: car.year,
+            manufacturer: manufacturer.name,
+          }),
         });
-        setInsight(response.text || '');
+
+        if (!response.ok) {
+          throw new Error(`Insight request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        setInsight(data.insight || '');
       } catch (e) {
         setInsight('A masterpiece of automotive history, representing the pinnacle of its era.');
       } finally {
